@@ -8,6 +8,11 @@ export class FormController {
 		this.service = service;
 	}
 
+	public async findAll(request: Request, response: Response): Promise<void> {
+		const result = await this.service.findAll();
+		response.json(result);
+	}
+
 	public async submit(request: Request, response: Response): Promise<void> {
 		const result = await this.service.submit(request.body);
 		response.status(201).json(result);

@@ -3,4 +3,4 @@ import { formRouter } from "./form.ts";
 
 export const apiRouter = Router();
 
-apiRouter.use("/form", formRouter);
+apiRouter.use("/forms", formRouter);

@@ -8,6 +8,10 @@ export class FormRepository {
 		this.prisma = prismaClient;
 	}
 
+	public async findAll(): Promise<Form[]> {
+		return await this.prisma.form.findMany();
+	}
+
 	public async create(form: Form): Promise<Form> {
 		return await this.prisma.form.create({
 			data: form,
