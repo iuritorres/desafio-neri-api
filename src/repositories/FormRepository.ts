@@ -9,7 +9,7 @@ export class FormRepository {
 	}
 
 	public async create(form: Form): Promise<Form> {
-		return this.prisma.form.create({
+		return await this.prisma.form.create({
 			data: form,
 		});
 	}

@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { z } from "zod";
+import { BadRequestError } from "../errors/BadRequestError.ts";
 import { FormService } from "../services/FormService.ts";
 
 export class FormController {
@@ -9,10 +11,25 @@ export class FormController {
 	}
 
 	public async submit(request: Request, response: Response): Promise<void> {
-		const { body } = request;
-		const result = await this.service.submit(body);
+		const createFormSchema = z.object({
+			name: z.string().catch(() => {
+				throw new BadRequestError({ message: "Nome inválido." });
+			}),
+			email: z
+				.string()
+				.email()
+				.catch(() => {
+					throw new BadRequestError({ message: "Email inválido." });
+				}),
+			message: z.string().catch(() => {
+				throw new BadRequestError({ message: "Mensagem inválida." });
+			}),
+		});
 
-		response.status(200).json(result);
+		const formDto = createFormSchema.parse(request.body);
+		const result = await this.service.submit(formDto);
+
+		response.status(201).json(result);
 	}
 
 	public static async initialize(dependencies: {
