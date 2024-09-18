@@ -5,9 +5,9 @@ import { ApiError } from "../errors/ApiError.ts";
 
 export function errorMiddleware(
 	error: Error & Partial<ApiError>,
-	request: Request,
+	_request: Request,
 	response: Response,
-	next: NextFunction,
+	_next: NextFunction,
 ) {
 	const statusCode = error.statusCode ?? 500;
 	const message = error.statusCode

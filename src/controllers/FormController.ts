@@ -8,7 +8,7 @@ export class FormController {
 		this.service = service;
 	}
 
-	public async findAll(request: Request, response: Response): Promise<void> {
+	public async findAll(_request: Request, response: Response): Promise<void> {
 		const result = await this.service.findAll();
 		response.json(result);
 	}
