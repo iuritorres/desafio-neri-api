@@ -1,5 +1,7 @@
+import { z } from "zod";
 import { FormDTO } from "../dtos/FormDTO.ts";
 import { Form } from "../entities/Form.ts";
+import { BadRequestError } from "../errors/BadRequestError.ts";
 import { FormRepository } from "../repositories/FormRepository.ts";
 
 export class FormService {
@@ -9,13 +11,24 @@ export class FormService {
 		this.repository = repository;
 	}
 
-	public async submit(body: FormDTO): Promise<FormDTO> {
-		const form = new Form(body);
+	public async submit(requestBody: FormDTO): Promise<FormDTO> {
+		const createFormSchema = z.object({
+			name: z.string().catch(() => {
+				throw new BadRequestError({ message: "Nome inválido." });
+			}),
+			email: z
+				.string()
+				.email()
+				.catch(() => {
+					throw new BadRequestError({ message: "Email inválido." });
+				}),
+			message: z.string().catch(() => {
+				throw new BadRequestError({ message: "Mensagem inválida." });
+			}),
+		});
 
+		const form = new Form(createFormSchema.parse(requestBody));
 		const createdForm = await this.repository.create(form);
-		if (!createdForm) {
-			throw new Error("Failed to create form");
-		}
 
 		return {
 			name: createdForm.name,
