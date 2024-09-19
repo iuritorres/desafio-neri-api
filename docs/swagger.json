@@ -1,0 +1,117 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API - Desafio Técnico da Neri",
+        "description": "Essa API tem como objetivo realizar operações de visualização e cadastro de formulários enviados por usuários.",
+        "contact": {
+            "name": "Iuri Torres",
+            "email": "iuri.t1000@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/api",
+            "description": "API de Teste - Servidor Local"
+        }
+    ],
+    "paths": {
+        "/forms": {
+            "get": {
+                "summary": "Listagem de Formulários",
+                "description": "Retorna uma lista com todos os formulários cadastrados.",
+                "tags": [
+                    "Forms"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Form"
+                                    }
+                                },
+                                "examples": {
+                                "form": {
+                                    "value": {
+                                        "name": "Iuri Torres",
+                                        "email": "iuri.t1000@gmail.com",
+                                        "message": "Olá, gostaria de saber mais sobre a vaga de Desenvolvedor Junior."
+                                    }
+                                }
+                            }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nenhuma mensagem encontrada."
+                    }
+                }
+            }
+        },
+        "/forms/submit": {
+            "post": {
+                "summary": "Cadastro de Formulário",
+                "description": "Cria um novo formulário com as informações fornecidas pelo usuário.",
+                "tags": [
+                    "Forms"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Form"
+                            },
+                            "examples": {
+                                "form": {
+                                    "value": {
+                                        "name": "Iuri Torres",
+                                        "email": "iuri.t1000@gmail.com",
+                                        "message": "Olá, gostaria de saber mais sobre a vaga de Desenvolvedor Junior."
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Nome | Email | Mensagem inválido."
+                    },
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Form"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Form": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

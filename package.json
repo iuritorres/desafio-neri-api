@@ -21,6 +21,7 @@
    "tsup": {
       "entry": [
          "src/",
+         "docs/",
          "prisma/prismaClient.ts"
       ],
       "splitting": false,
@@ -39,12 +40,14 @@
       "express": "^4.21.0",
       "express-async-errors": "^3.1.1",
       "pg": "^8.13.0",
+      "swagger-ui-express": "^5.0.1",
       "zod": "^3.23.8"
    },
    "devDependencies": {
       "@eslint/js": "^9.10.0",
       "@types/node": "^22.5.5",
       "@types/pg": "^8.11.10",
+      "@types/swagger-ui-express": "^4.1.6",
       "eslint": "^9.10.0",
       "globals": "^15.9.0",
       "husky": "^9.1.6",
