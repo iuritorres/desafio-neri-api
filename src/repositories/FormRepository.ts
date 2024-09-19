@@ -9,11 +9,11 @@ export class FormRepository {
 	}
 
 	public async findAll(): Promise<Form[]> {
-		return await this.prisma.form.findMany();
+		return await this.prisma.forms.findMany();
 	}
 
 	public async create(form: Form): Promise<Form> {
-		return await this.prisma.form.create({
+		return await this.prisma.forms.create({
 			data: form,
 		});
 	}

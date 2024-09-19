@@ -8,7 +8,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Form {
+model forms {
   id        String   @id @default(uuid())
   name      String
   email     String
